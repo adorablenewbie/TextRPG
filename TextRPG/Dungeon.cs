@@ -133,6 +133,18 @@ namespace TextRPG
                             Console.WriteLine($"\n당신은 {selectedMonster.Name}을(를) 공격합니다!");
                             AttackEnemy(selectedMonster, player);
                             spawnedMonsters.RemoveAll(m => m.Hp <= 0);
+                            for (int i = 0; i < spawnedMonsters.Count; i++)
+                            {
+                                player.Hp -= spawnedMonsters[i].Attack - player.Defense;
+                                Console.WriteLine($"\n{spawnedMonsters[i].Name}이(가) 당신을 공격합니다! 당신의 남은 HP: {player.Hp}");
+                                if (player.Hp <= 0)
+                                {
+                                    Console.WriteLine("당신은 쓰러졌습니다! 게임 오버!");
+                                    System.Threading.Thread.Sleep(2000);
+                                    Environment.Exit(0);
+                                }
+                                System.Threading.Thread.Sleep(2000);
+                            }
                             if (spawnedMonsters.Count == 0)
                             {
                                 Console.WriteLine("모든 몬스터를 처치했습니다!");
